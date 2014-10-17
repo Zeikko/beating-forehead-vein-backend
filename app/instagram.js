@@ -11,18 +11,25 @@ instagram.use({
 });
 
 /* OPTIONS: { [min_timestamp], [max_timestamp], [distance] }; */
-exports.nature = function(callback) {
+exports.nature = function(fromTime, callback) {
     instagram.media_search(60.170833, 24.9375, {}, function(err, medias, remaining, limit) {
+        console.log(medias);
         if (err) {
             callback(err, null);
         } else {
-            var images = _.map(medias, function(media) {
+            if (fromTime) {
+                medias = _.filter(medias, function(media) {
+                    return media.created_time > fromTime;
+                });
+            }
+            medias = _.map(medias, function(media) {
                 return {
+                    timestamp: parseInt(media.created_time),
                     url: media.images.standard_resolution.url
                 };
             });
             callback(null, {
-            	images: images
+                medias: medias
             });
         }
     });
