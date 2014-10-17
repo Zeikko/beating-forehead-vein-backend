@@ -5,7 +5,7 @@ var instagram = require('../instagram.js');
 exports.get = function(req, res) {
 	var fromTime;
 	if(req.query.fromTime) {
-		fromTime = req.query.fromTime;
+		fromTime = req.query.fromtime;
 	}
     instagram.nature(fromTime, function(err, images) {
         if (err) {
