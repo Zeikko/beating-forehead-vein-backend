@@ -11,7 +11,7 @@ instagram.use({
 });
 
 exports.nature = function(fromTime, callback) {
-    instagram.media_search(60.170833, 24.9375, {}, function(err, medias, remaining, limit) {
+    instagram.tag_media_recent('järvi', {}, function(err, medias, remaining, limit) {
         console.log(medias);
         if (err) {
             callback(err, null);
