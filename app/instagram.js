@@ -26,7 +26,8 @@ var getImagesByTag = function(tag, fromTime, callback) {
                 return {
                     timestamp: parseInt(media.created_time),
                     url: media.images.standard_resolution.url,
-                    //tags: media.tags
+                    thumbnail: media.images.thumbnail.url,
+                    tags: media.tags
                 };
             });
             callback(null, medias);
@@ -38,13 +39,11 @@ exports.getImagesByTags = function(tags, fromTime, callback) {
 	var tagLoop = _.map(tags, function(tag) {
 		return function(parallelCallback) {
 			getImagesByTag(tag, fromTime, parallelCallback);
-		}
+		};
 	});
     async.parallel(tagLoop, function(err, images) {
     	images = _.flatten(images);
     	images = _.sortBy(images, 'timestamp');
-        callback(err, {
-            images: images
-        });
+        callback(err, images);
     });
 };

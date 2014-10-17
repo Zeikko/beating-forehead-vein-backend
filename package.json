@@ -22,6 +22,7 @@
     "instagram-node": "^0.5.1",
     "lodash": "^2.4.1",
     "moment": "^2.8.3",
+    "swig": "^1.4.2",
     "twit": "^1.1.18"
   },
   "devDependencies": {
