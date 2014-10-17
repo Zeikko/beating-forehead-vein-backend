@@ -14,14 +14,14 @@ instagram.use({
 exports.nature = function(callback) {
     instagram.media_search(60.170833, 24.9375, {}, function(err, medias, remaining, limit) {
         if (err) {
-            callback(err, {});
+            callback(err, null);
         } else {
             var images = _.map(medias, function(media) {
                 return {
                     url: media.images.standard_resolution.url
                 };
             });
-            callback({}, {
+            callback(null, {
             	images: images
             });
         }
