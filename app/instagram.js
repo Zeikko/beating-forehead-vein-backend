@@ -1,6 +1,7 @@
 'use strict';
 
-var _ = require('lodash');
+var _ = require('lodash'),
+    async = require('async');
 
 var instagram = require('instagram-node').instagram();
 
@@ -10,8 +11,8 @@ instagram.use({
     client_secret: '01e9ed98b82a4cee91769631dd3122cb'
 });
 
-exports.nature = function(fromTime, callback) {
-    instagram.tag_media_recent('järvi', {}, function(err, medias, remaining, limit) {
+var getImagesByTag = function(tag, fromTime, callback) {
+    instagram.tag_media_recent(tag, {}, function(err, medias, remaining, limit) {
         console.log(medias);
         if (err) {
             callback(err, null);
@@ -24,12 +25,26 @@ exports.nature = function(fromTime, callback) {
             medias = _.map(medias, function(media) {
                 return {
                     timestamp: parseInt(media.created_time),
-                    url: media.images.standard_resolution.url
+                    url: media.images.standard_resolution.url,
+                    //tags: media.tags
                 };
             });
-            callback(null, {
-                images: medias
-            });
+            callback(null, medias);
         }
+    });
+};
+
+exports.getImagesByTags = function(tags, fromTime, callback) {
+	var tagLoop = _.map(tags, function(tag) {
+		return function(parallelCallback) {
+			getImagesByTag(tag, fromTime, parallelCallback);
+		}
+	});
+    async.parallel(tagLoop, function(err, images) {
+    	images = _.flatten(images);
+    	images = _.sortBy(images, 'timestamp');
+        callback(err, {
+            images: images
+        });
     });
 };
