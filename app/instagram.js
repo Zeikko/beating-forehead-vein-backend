@@ -10,7 +10,6 @@ instagram.use({
     client_secret: '01e9ed98b82a4cee91769631dd3122cb'
 });
 
-/* OPTIONS: { [min_timestamp], [max_timestamp], [distance] }; */
 exports.nature = function(fromTime, callback) {
     instagram.media_search(60.170833, 24.9375, {}, function(err, medias, remaining, limit) {
         console.log(medias);
@@ -29,7 +28,7 @@ exports.nature = function(fromTime, callback) {
                 };
             });
             callback(null, {
-                medias: medias
+                images: medias
             });
         }
     });
