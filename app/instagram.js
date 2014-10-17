@@ -13,15 +13,17 @@ instagram.use({
 /* OPTIONS: { [min_timestamp], [max_timestamp], [distance] }; */
 exports.nature = function(callback) {
     instagram.media_search(60.170833, 24.9375, {}, function(err, medias, remaining, limit) {
-    	console.log('instagram');
-    	console.log(err);
-    	console.log(medias);
-    	console.log(limit);
-    	var images = _.map(medias, function(media) {
-    		return {
-    			url: media.images.standard_resolution.url
-    		}
-    	})
-    	callback(images);
+        if (err) {
+            callback(err, {});
+        } else {
+            var images = _.map(medias, function(media) {
+                return {
+                    url: media.images.standard_resolution.url
+                };
+            });
+            callback({}, {
+            	images: images
+            });
+        }
     });
 };
