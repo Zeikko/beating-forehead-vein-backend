@@ -3,40 +3,50 @@
 var instagram = require('../services/instagram.js'),
     twitter = require('../services/twitter.js');
 
-exports.images = function(req, res) {
+exports.images = function(req, res, cache) {
     var fromTime;
     if (req.query.fromTime) {
         fromTime = req.query.fromtime;
     }
-    instagram.getImagesByTags([
-        'meitsie',
-        'viski',
-        'stubbselfie',
-        'ylevero',
-        'venäjä',
-        'velkatakuut',
-        'maakaasu',
-        'putin',
-        'kehäkolme',
-        'susiraja',
-        'pirkanmaa',
-        'alibi',
-        'julkinensektori',
-        'virkamies',
-        'säännöstely',
-        'kontrolli',
-        'suomettuminen'
-    ], 3, fromTime, function(err, images) {
-        if (err) {
-            console.log(err.message);
-            res.status(500);
-            res.jsonp({
-                error: 'Error while getting data from instagram'
-            });
+    var cacheKey = 'collection-text' + fromTime;
+    cache.get(cacheKey, function(err, value) {
+        if (typeof value[cacheKey] !== 'undefined') {
+            res.jsonp(value[cacheKey]);
         } else {
-            res.jsonp({
-                count: images.length,
-                images: images
+            instagram.getImagesByTags([
+                'meitsie',
+                'viski',
+                'stubbselfie',
+                'ylevero',
+                'venäjä',
+                'velkatakuut',
+                'maakaasu',
+                'putin',
+                'kehäkolme',
+                'susiraja',
+                'pirkanmaa',
+                'alibi',
+                'julkinensektori',
+                'virkamies',
+                'säännöstely',
+                'kontrolli',
+                'suomettuminen'
+            ], 3, fromTime, function(err, images) {
+                if (err) {
+                    console.log(err.message);
+                    res.status(500);
+                    res.jsonp({
+                        error: 'Error while getting data from instagram'
+                    });
+                } else {
+                    var response = {
+                        count: images.length,
+                        images: images
+                    };
+                    cache.set(cacheKey, response, 3 * 180, function() {
+                        res.jsonp(response);
+                    });
+                }
             });
         }
     });

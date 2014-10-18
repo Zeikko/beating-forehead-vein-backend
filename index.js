@@ -23,7 +23,9 @@ app.get('/images/sibelius.json', sibelius.images);
 app.get('/text/nature.json', nature.text);
 app.get('/instagram/tag.html', instagram.tag);
 app.get('/twitter/hashtag.json', twitter.hashtag);
-app.get('/images/collection.json', collection.images);
+app.get('/images/collection.json', function(req, res) {
+    collection.images(req, res, cache);
+});
 app.get('/text/collection.json', function(req, res) {
     collection.text(req, res, cache);
 });
