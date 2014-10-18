@@ -8,7 +8,7 @@ exports.images = function(req, res) {
         fromTime = req.query.fromtime;
     }
     instagram.getImagesByTags([
-        'selfie'
+        'meitsie'
     ], fromTime, function(err, images) {
         if (err) {
             res.status(500);
