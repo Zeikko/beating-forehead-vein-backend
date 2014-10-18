@@ -7,9 +7,12 @@ var express = require('express'),
     twitter = require('./app/routes/twitter.js'),
     selfie = require('./app/routes/selfie.js'),
     sibelius = require('./app/routes/sibelius.js'),
-    collection = require('./app/routes/collection.js');
+    collection = require('./app/routes/collection.js'),
+    nodeCache = require('node-cache');
 
 var app = express();
+
+var cache = new nodeCache();
 
 app.use(express.static(__dirname + '/public'));
 
@@ -21,7 +24,9 @@ app.get('/text/nature.json', nature.text);
 app.get('/instagram/tag.html', instagram.tag);
 app.get('/twitter/hashtag.json', twitter.hashtag);
 app.get('/images/collection.json', collection.images);
-app.get('/text/collection.json', collection.text);
+app.get('/text/collection.json', function(req, res) {
+    collection.text(req, res, cache);
+});
 
 var server = app.listen(process.env.PORT || 3000, function() {
     var host = server.address().address;
