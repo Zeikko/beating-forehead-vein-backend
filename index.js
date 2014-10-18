@@ -5,7 +5,8 @@ var express = require('express'),
     nature = require('./app/routes/nature.js'),
     instagram = require('./app/routes/instagram.js'),
     twitter = require('./app/routes/twitter.js'),
-    selfie = require('./app/routes/selfie.js');
+    selfie = require('./app/routes/selfie.js'),
+    sibelius = require('./app/routes/sibelius.js');
 
 var app = express();
 
@@ -14,6 +15,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', index.get);
 app.get('/images/nature.json', nature.images);
 app.get('/images/selfie.json', selfie.images);
+app.get('/images/sibelius.json', sibelius.images);
 app.get('/text/nature.json', nature.text);
 app.get('/instagram/tag.html', instagram.tag);
 app.get('/twitter/hashtag.json', twitter.hashtag);
