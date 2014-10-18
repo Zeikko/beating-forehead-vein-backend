@@ -1,10 +1,10 @@
 'use strict';
 
 var express = require('express'),
-	index = require('./routes/index.js'),
-	nature = require('./routes/nature.js'),
-	instagram = require('./routes/instagram.js'),
-	twitter = require('./routes/twitter.js');
+    index = require('./routes/index.js'),
+    nature = require('./routes/nature.js'),
+    instagram = require('./routes/instagram.js'),
+    twitter = require('./routes/twitter.js');
 
 var app = express();
 
@@ -13,10 +13,9 @@ app.get('/images/nature.json', nature.json);
 app.get('/instagram/tag.html', instagram.tag);
 app.get('/twitter/hashtag.json', twitter.hashtag);
 
-var server = app.listen(process.env.PORT || 3000, function () {
 
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Listening at http://%s:%s', host, port);
-
+var server = app.listen(process.env.PORT || 3000, function() {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log('Listening at http://%s:%s', host, port);
 });

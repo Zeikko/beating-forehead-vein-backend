@@ -17,7 +17,7 @@ exports.tag = function(req, res) {
                 error: 'Error while getting data from instagram'
             });
         } else {
-        	images = _.map(images, 'thumbnail');
+            images = _.map(images, 'thumbnail');
             res.send(swig.renderFile('app/views/images.html', {
                 images: images
             }));

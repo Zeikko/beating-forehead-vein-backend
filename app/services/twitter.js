@@ -22,12 +22,12 @@ exports.getTweetsByHashtags = function(hashtag, fromTime, callback) {
         	var tweets = data.statuses;
             if (fromTime) {
                 tweets = _.filter(tweets, function(tweet) {
-                    return parseInt(moment(tweet.created_at).format('X')) > fromTime;
+                    return parseInt(moment(new Date(tweet.created_at)).format('X')) > fromTime;
                 });
             }
             tweets = _.map(tweets, function(tweet) {
                 return {
-                    timestamp: parseInt(moment(tweet.created_at).format('X')),
+                    timestamp: parseInt(moment(new Date(tweet.created_at)).format('X')),
                     text: tweet.text,
                     //tags: tweet.entities.hashtags,
                     //tag: media.tags[0]
