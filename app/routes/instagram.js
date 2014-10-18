@@ -1,7 +1,6 @@
 'use strict';
 
-var instagram = require('../instagram.js'),
-    moment = require('moment'),
+var instagram = require('../services/instagram.js'),
     swig = require('swig'),
     _ = require('lodash');
 

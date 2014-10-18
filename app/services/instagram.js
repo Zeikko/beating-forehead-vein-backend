@@ -27,7 +27,8 @@ var getImagesByTag = function(tag, fromTime, callback) {
                     timestamp: parseInt(media.created_time),
                     url: media.images.standard_resolution.url,
                     thumbnail: media.images.thumbnail.url,
-                    tags: media.tags
+                    tags: media.tags,
+                    tag: media.tags[0]
                 };
             });
             callback(null, medias);

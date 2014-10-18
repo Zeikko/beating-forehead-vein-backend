@@ -1,6 +1,6 @@
 'use strict';
 
-var instagram = require('../instagram.js'),
+var instagram = require('../services/instagram.js'),
     moment = require('moment');
 
 exports.json = function(req, res) {
@@ -16,6 +16,7 @@ exports.json = function(req, res) {
         'metsä',
         'talvi',
         'sieni',
+        'ainola'
     ], fromTime, function(err, images) {
         if (err) {
             res.status(500);
