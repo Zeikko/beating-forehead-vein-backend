@@ -10,7 +10,7 @@ exports.tag = function(req, res) {
         fromTime = req.query.fromtime;
     }
     var tags = req.query.tags.split(',');
-    instagram.getImagesByTags(tags, fromTime, function(err, images) {
+    instagram.getImagesByTags(tags, 40, fromTime, function(err, images) {
         if (err) {
             res.status(500);
             res.jsonp({

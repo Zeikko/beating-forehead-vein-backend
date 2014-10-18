@@ -6,7 +6,8 @@ var express = require('express'),
     instagram = require('./app/routes/instagram.js'),
     twitter = require('./app/routes/twitter.js'),
     selfie = require('./app/routes/selfie.js'),
-    sibelius = require('./app/routes/sibelius.js');
+    sibelius = require('./app/routes/sibelius.js'),
+    collection = require('./app/routes/collection.js');
 
 var app = express();
 
@@ -19,7 +20,7 @@ app.get('/images/sibelius.json', sibelius.images);
 app.get('/text/nature.json', nature.text);
 app.get('/instagram/tag.html', instagram.tag);
 app.get('/twitter/hashtag.json', twitter.hashtag);
-
+app.get('/images/collection.json', collection.images);
 
 var server = app.listen(process.env.PORT || 3000, function() {
     var host = server.address().address;

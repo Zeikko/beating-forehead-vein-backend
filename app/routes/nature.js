@@ -17,7 +17,7 @@ exports.images = function(req, res) {
         'maisema',
         'meri',
         'pelto'
-    ], fromTime, function(err, images) {
+    ], 40, fromTime, function(err, images) {
         if (err) {
             res.status(500);
             res.jsonp({

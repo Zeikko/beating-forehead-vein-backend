@@ -1,6 +1,7 @@
 'use strict';
 
-var instagram = require('../services/instagram.js');
+var instagram = require('../services/instagram.js'),
+    twitter = require('../services/twitter.js');
 
 exports.images = function(req, res) {
     var fromTime;
@@ -8,8 +9,19 @@ exports.images = function(req, res) {
         fromTime = req.query.fromtime;
     }
     instagram.getImagesByTags([
-        'meitsie'
-    ], 40, fromTime, function(err, images) {
+        'meitsie',
+        'viski',
+        'stubbselfie',
+        'ylevero',
+        'venäjä',
+        'velkatakuut',
+        'maakaasu',
+        'putin',
+        'kehäkolme',
+        'susiraja',
+        'pirkanmaa',
+        'alibi'
+    ], 5, fromTime, function(err, images) {
         if (err) {
             res.status(500);
             res.jsonp({

@@ -22,7 +22,7 @@
         });
     };
 
-    var getImagesByTag = function(tag, fromTime, callback) {
+    var getImagesByTag = function(tag, imagesPerTag, fromTime, callback) {
         var images = [];
         var getPage = function(err, medias, pagination, remaining, limit) {
             if (err) {
@@ -36,7 +36,7 @@
                 medias = mapMediaData(medias);
                 images = images.concat(medias);
             }
-            if (pagination && pagination.next && images.length < 40) {
+            if (pagination && pagination.next && images.length < imagesPerTag) {
                 pagination.next(getPage);
             } else {
                 callback(null, images);
@@ -75,10 +75,10 @@
         });
     };
 
-    exports.getImagesByTags = function(tags, fromTime, callback) {
+    exports.getImagesByTags = function(tags, imagesPerTag, fromTime, callback) {
         var tagLoop = _.map(tags, function(tag) {
             return function(parallelCallback) {
-                getImagesByTag(tag, fromTime, parallelCallback);
+                getImagesByTag(tag, imagesPerTag, fromTime, parallelCallback);
             };
         });
         async.parallel(tagLoop, function(err, images) {
