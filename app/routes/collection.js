@@ -8,7 +8,7 @@ exports.images = function(req, res, cache) {
     if (req.query.fromTime) {
         fromTime = req.query.fromtime;
     }
-    var cacheKey = 'collection-text' + fromTime;
+    var cacheKey = 'collection-images' + fromTime;
     cache.get(cacheKey, function(err, value) {
         if (typeof value[cacheKey] !== 'undefined') {
             res.jsonp(value[cacheKey]);
