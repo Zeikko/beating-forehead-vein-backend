@@ -25,8 +25,6 @@ var getTweetsByHashtag = function(hashtag, maxTweetsPerHashtag, fromTime, lang, 
             callback(err, null);
         } else {
             var tweets = data.statuses;
-            console.log(hashtag);
-            console.log(tweets.length);
             if (fromTime) {
                 tweets = _.filter(tweets, function(tweet) {
                     return parseInt(moment(new Date(tweet.created_at)).format('X')) > fromTime;
@@ -36,7 +34,6 @@ var getTweetsByHashtag = function(hashtag, maxTweetsPerHashtag, fromTime, lang, 
             tweets = _.filter(tweets, function(tweet) {
                 return tweet.text.indexOf('http') === -1 && tweet.retweeted === false && tweet.text.indexOf('@') !== 0 && tweet.text.indexOf('RT') !== 0;
             });
-            console.log(tweets.length);
             if (maxTweetsPerHashtag < 100) {
                 var i = 0;
                 tweets = _.filter(tweets, function(tweet) {
@@ -48,7 +45,6 @@ var getTweetsByHashtag = function(hashtag, maxTweetsPerHashtag, fromTime, lang, 
                     }
                 });
             }
-            console.log(tweets.length);
             tweets = _.map(tweets, function(tweet) {
                 return {
                     timestamp: parseInt(moment(new Date(tweet.created_at)).format('X')),
