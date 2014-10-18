@@ -18,7 +18,7 @@ var getTweetsByHashtag = function(hashtag, maxTweetsPerHashtag, fromTime, lang, 
         count: 100
     };
     if (lang) {
-        //options.lang = lang;
+        options.lang = lang;
     }
     twitter.get('search/tweets', options, function(err, data, response) {
         if (err) {
@@ -48,9 +48,7 @@ var getTweetsByHashtag = function(hashtag, maxTweetsPerHashtag, fromTime, lang, 
             tweets = _.map(tweets, function(tweet) {
                 return {
                     timestamp: parseInt(moment(new Date(tweet.created_at)).format('X')),
-                    text: tweet.text,
-                    //tags: tweet.entities.hashtags,
-                    //tag: media.tags[0]
+                    text: tweet.text
                 };
             });
             callback(null, tweets);

@@ -28,6 +28,7 @@ exports.images = function(req, res) {
         'suomettuminen'
     ], 3, fromTime, function(err, images) {
         if (err) {
+            console.log(err.message);
             res.status(500);
             res.jsonp({
                 error: 'Error while getting data from instagram'
@@ -48,25 +49,26 @@ exports.text = function(req, res) {
     }
     twitter.getTweetsByHashtags([
         'viski',
-        'stubbselfie',
+        //'stubbselfie',
         'ylevero',
         'venäjä',
-        'velkatakuut',
-        'maakaasu',
+        //'velkatakuut',
+        //'maakaasu',
         'putin',
-        'kehäkolme',
+        //'kehäkolme',
         'susiraja',
         'pirkanmaa',
         'alibi',
         'julkinensektori',
         'virkamies',
-        'säännöstely',
-        'kontrolli',
+        //'säännöstely',
+        //'kontrolli',
     ], 1, fromTime, 'fi', function(err, tweets) {
         if (err) {
+            console.log(err);
             res.status(500);
             res.jsonp({
-                error: 'Error while getting data from instagram'
+                error: 'Error while getting data from twitter'
             });
         } else {
             res.jsonp({
