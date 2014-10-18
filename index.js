@@ -1,12 +1,14 @@
 'use strict';
 
 var express = require('express'),
-    index = require('./routes/index.js'),
-    nature = require('./routes/nature.js'),
-    instagram = require('./routes/instagram.js'),
-    twitter = require('./routes/twitter.js');
+    index = require('./app/routes/index.js'),
+    nature = require('./app/routes/nature.js'),
+    instagram = require('./app/routes/instagram.js'),
+    twitter = require('./app/routes/twitter.js');
 
 var app = express();
+
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', index.get);
 app.get('/images/nature.json', nature.images);

@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         },
         nodemon: {
             dev: {
-                script: 'app/index.js',
+                script: 'index.js',
                 options: {
                     args: [],
                     ignore: ['node_modules/**'],

@@ -2,7 +2,7 @@
   "name": "beating-forehead-vein-backend",
   "version": "0.0.0",
   "description": "Team beating forehead vein's Sibhack 2014 backend",
-  "main": "app/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
