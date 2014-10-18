@@ -48,21 +48,25 @@ exports.text = function(req, res) {
         fromTime = req.query.fromtime;
     }
     twitter.getTweetsByHashtags([
+        'suomi',
+        'helsinki',
+        'tampere',
+        'bbsuomi',
+        'vainelämää',
+        'huuhkajat',
+        'liiga',
+        'politiikka',
         'viski',
-        //'stubbselfie',
+        'olut',
         'ylevero',
+        'anteeksi',
+        'a2ilta',
         'venäjä',
-        //'velkatakuut',
-        //'maakaasu',
-        //'putin',
-        //'kehäkolme',
         'susiraja',
         'pirkanmaa',
         'alibi',
         'julkinensektori',
-        'virkamies',
-        //'säännöstely',
-        //'kontrolli',
+        'virkamies'
     ], 30, fromTime, 'fi', function(err, tweets) {
         if (err) {
             console.log(err);
