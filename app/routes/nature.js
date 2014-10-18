@@ -1,14 +1,13 @@
 'use strict';
 
 var instagram = require('../services/instagram.js'),
-    moment = require('moment');
+    moment = require('moment'),
+    twitter = require('../services/twitter.js');
 
-exports.json = function(req, res) {
+exports.images = function(req, res) {
     var fromTime;
     if (req.query.fromTime) {
         fromTime = req.query.fromtime;
-    } else {
-        fromTime = moment(new Date()).subtract(1, 'hour').format('X');
     }
     instagram.getImagesByTags([
     	'järvi',
@@ -26,6 +25,33 @@ exports.json = function(req, res) {
         } else {
             res.jsonp({
             	images: images
+            });
+        }
+    });
+};
+
+
+exports.text = function(req, res) {
+    var fromTime;
+    if (req.query.fromTime) {
+        fromTime = req.query.fromtime;
+    }
+    twitter.getTweetsByHashtags([
+        'järvi',
+        'luonto',
+        'metsä',
+        'talvi',
+        'sieni',
+        'ainola'
+    ], fromTime, 'fi', function(err, tweets) {
+        if (err) {
+            res.status(500);
+            res.jsonp({
+                error: 'Error while getting data from instagram'
+            });
+        } else {
+            res.jsonp({
+                tweets: tweets
             });
         }
     });

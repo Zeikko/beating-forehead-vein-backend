@@ -11,15 +11,26 @@ var twitter = new twit({
     access_token_secret: 'WzO7jAy93WfAxEO3WfZTvHw3sTB7tG7bx9pRpu9sTLOhW'
 });
 
-exports.getTweetsByHashtags = function(hashtag, fromTime, callback) {
+exports.getTweetsByHashtags = function(hashtags, fromTime, lang, callback) {
+    hashtags = _.map(hashtags, function(hashtag) {
+        return '#' + hashtag;
+    });
+    var q = hashtags.join(' OR ');
+    var options = {
+        q: q
+    };
+    if(lang) {
+        options.lang = lang;
+    }
+    console.log(options);
     twitter.get('search/tweets', {
-        q: 'metsä'
+        q: q
     }, function(err, data, response) {
-        console.log(data);
+        //console.log(data);
         if (err) {
             callback(err, null);
         } else {
-        	var tweets = data.statuses;
+            var tweets = data.statuses;
             if (fromTime) {
                 tweets = _.filter(tweets, function(tweet) {
                     return parseInt(moment(new Date(tweet.created_at)).format('X')) > fromTime;

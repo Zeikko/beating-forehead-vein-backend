@@ -9,7 +9,8 @@ var express = require('express'),
 var app = express();
 
 app.get('/', index.get);
-app.get('/images/nature.json', nature.json);
+app.get('/images/nature.json', nature.images);
+app.get('/text/nature.json', nature.text);
 app.get('/instagram/tag.html', instagram.tag);
 app.get('/twitter/hashtag.json', twitter.hashtag);
 
