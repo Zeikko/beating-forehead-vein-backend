@@ -34,6 +34,17 @@
                     });
                 }
                 medias = mapMediaData(medias);
+                if(imagesPerTag < 20) {
+                    var i = 0;
+                    medias = _.filter(medias, function(media) {
+                        i++;
+                        if(i <= imagesPerTag) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
                 images = images.concat(medias);
             }
             if (pagination && pagination.next && images.length < imagesPerTag) {

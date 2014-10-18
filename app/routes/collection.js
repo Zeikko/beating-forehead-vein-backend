@@ -20,8 +20,13 @@ exports.images = function(req, res) {
         'kehäkolme',
         'susiraja',
         'pirkanmaa',
-        'alibi'
-    ], 5, fromTime, function(err, images) {
+        'alibi',
+        'julkinensektori',
+        'virkamies',
+        'säännöstely',
+        'kontrolli',
+        'suomettuminen'
+    ], 3, fromTime, function(err, images) {
         if (err) {
             res.status(500);
             res.jsonp({
