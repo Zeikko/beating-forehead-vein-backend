@@ -39,7 +39,8 @@ var getTweetsByHashtag = function(hashtag, sort, fromTime, lang, callback) {
                     timestamp: parseInt(moment(new Date(tweet.created_at)).format('X')),
                     text: tweet.text,
                     sort: sort,
-                    hashtag: hashtag
+                    hashtag: hashtag,
+                    id: tweet.id
                 };
             });
             callback(null, tweets);
@@ -62,9 +63,13 @@ exports.getTweetsByHashtags = function(hashtags, maxTweets, fromTime, lang, call
             var filteredTweets = [];
             var hashtagId = 0;
             var tweetId = 0;
+            var addedTweetIds = [];
             while (filteredTweets.length < maxTweets && tweetId <= 100) {
-                if (typeof tweets[hashtagId][tweetId] !== 'undefined') {
-                    filteredTweets.push(tweets[hashtagId][tweetId]);
+                if (addedTweetIds.indexOf(tweets[hashtagId][tweetId].id) === -1) {
+                    if (typeof tweets[hashtagId][tweetId] !== 'undefined') {
+                        filteredTweets.push(tweets[hashtagId][tweetId]);
+                        addedTweetIds.push(tweets[hashtagId][tweetId].id);
+                    }
                 }
                 hashtagId = hashtagId + 1;
                 if (hashtagId >= tweets.length) {
