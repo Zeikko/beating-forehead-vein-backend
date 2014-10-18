@@ -11,6 +11,17 @@
         client_secret: '01e9ed98b82a4cee91769631dd3122cb'
     });
 
+    var mapMediaData = function(medias) {
+        return _.map(medias, function(media) {
+            return {
+                timestamp: parseInt(media.created_time),
+                url: media.images.standard_resolution.url,
+                thumbnail: media.images.thumbnail.url,
+                tag: media.tags[0]
+            };
+        });
+    }
+
     var getImagesByTag = function(tag, fromTime, callback) {
         var images = [];
         var getPage = function(err, medias, pagination, remaining, limit) {
@@ -22,17 +33,10 @@
                         return media.created_time > fromTime;
                     });
                 }
-                medias = _.map(medias, function(media) {
-                    return {
-                        timestamp: parseInt(media.created_time),
-                        url: media.images.standard_resolution.url,
-                        thumbnail: media.images.thumbnail.url,
-                        tag: media.tags[0]
-                    };
-                });
+                medias = mapMediaData(medias);
                 images = images.concat(medias);
             }
-            if (pagination && pagination.next && images.length < 100) {
+            if (pagination && pagination.next && images.length < 40) {
                 pagination.next(getPage);
             } else {
                 callback(null, images);
@@ -40,6 +44,37 @@
         };
         instagram.tag_media_recent(tag, getPage);
     };
+
+    exports.getImagesByTagsAndLocation = function(tags, location, fromTime, callback) {
+        instagram.media_search(location[0], location[1], {
+            distance: 1000
+        }, function(err, medias, remaining, limit) {
+            console.log(remaining);
+            console.log(limit);
+            if (err) {
+                console.log(err);
+                callback(err, null);
+            } else {
+                if (fromTime) {
+                    medias = _.filter(medias, function(media) {
+                        return media.created_time > fromTime;
+                    });
+                }
+                medias = _.filter(medias, function(media) {
+                    var found = false;
+                    _.forEach(tags, function(tag) {
+                        if (media.tags.indexOf(tag) > -1) {
+                            console.log(media.tags);
+                            found = true;
+                        }
+                    });
+                    return found;
+                });
+                var images = mapMediaData(medias);
+            }
+            callback(null, images);
+        });
+    }
 
     exports.getImagesByTags = function(tags, fromTime, callback) {
         var tagLoop = _.map(tags, function(tag) {
