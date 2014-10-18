@@ -15,7 +15,7 @@
         return _.map(medias, function(media) {
             return {
                 timestamp: parseInt(media.created_time),
-                url: media.images.standard_resolution.url,
+                url: media.images.low_resolution.url,
                 thumbnail: media.images.thumbnail.url,
                 tag: media.tags[0]
             };
