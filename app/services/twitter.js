@@ -17,14 +17,13 @@ exports.getTweetsByHashtags = function(hashtags, fromTime, lang, callback) {
     });
     var q = hashtags.join(' OR ');
     var options = {
-        q: q
+        q: q,
+        count: 100
     };
     if(lang) {
         options.lang = lang;
     }
-    twitter.get('search/tweets', {
-        q: q
-    }, function(err, data, response) {
+    twitter.get('search/tweets', options, function(err, data, response) {
         //console.log(data);
         if (err) {
             callback(err, null);
@@ -35,6 +34,10 @@ exports.getTweetsByHashtags = function(hashtags, fromTime, lang, callback) {
                     return parseInt(moment(new Date(tweet.created_at)).format('X')) > fromTime;
                 });
             }
+            //Filter retweets and links
+            tweets = _.filter(tweets, function(tweet) {
+                return tweet.text.indexOf('http') === -1 && tweet.retweeted == false
+            });
             tweets = _.map(tweets, function(tweet) {
                 return {
                     timestamp: parseInt(moment(new Date(tweet.created_at)).format('X')),
