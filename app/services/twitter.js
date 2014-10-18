@@ -51,6 +51,7 @@ var getTweetsByHashtag = function(hashtag, sort, fromTime, lang, callback) {
 
 exports.getTweetsByHashtags = function(hashtags, maxTweets, fromTime, lang, callback) {
     var i = 0;
+    var filteredTweets = [];
     var tagLoop = _.map(hashtags, function(hashtag) {
         i = i + 1;
         var sort = i;
@@ -60,16 +61,13 @@ exports.getTweetsByHashtags = function(hashtags, maxTweets, fromTime, lang, call
     });
     async.parallel(tagLoop, function(err, tweets) {
         if (!err) {
-            var filteredTweets = [];
             var hashtagId = 0;
             var tweetId = 0;
             var addedTweetIds = [];
             while (filteredTweets.length < maxTweets && tweetId <= 100) {
-                if (addedTweetIds.indexOf(tweets[hashtagId][tweetId].id) === -1) {
-                    if (typeof tweets[hashtagId][tweetId] !== 'undefined') {
-                        filteredTweets.push(tweets[hashtagId][tweetId]);
-                        addedTweetIds.push(tweets[hashtagId][tweetId].id);
-                    }
+                if (typeof tweets[hashtagId][tweetId] !== 'undefined' && addedTweetIds.indexOf(tweets[hashtagId][tweetId].id) === -1) {
+                    filteredTweets.push(tweets[hashtagId][tweetId]);
+                    addedTweetIds.push(tweets[hashtagId][tweetId].id);
                 }
                 hashtagId = hashtagId + 1;
                 if (hashtagId >= tweets.length) {
