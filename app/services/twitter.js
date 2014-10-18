@@ -22,7 +22,6 @@ exports.getTweetsByHashtags = function(hashtags, fromTime, lang, callback) {
     if(lang) {
         options.lang = lang;
     }
-    console.log(options);
     twitter.get('search/tweets', {
         q: q
     }, function(err, data, response) {
