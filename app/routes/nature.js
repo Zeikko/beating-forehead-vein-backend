@@ -14,7 +14,9 @@ exports.images = function(req, res) {
         'metsä',
         'talvi',
         'sieni',
-        'ainola'
+        'maisema',
+        'meri',
+        'pelto'
     ], fromTime, function(err, images) {
         if (err) {
             res.status(500);

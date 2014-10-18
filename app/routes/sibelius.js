@@ -8,7 +8,9 @@ exports.images = function(req, res) {
         fromTime = req.query.fromtime;
     }
     instagram.getImagesByTags([
-        'sibelius'
+        'sibelius',
+        'ainola',
+        'finlandia'
     ], fromTime, function(err, images) {
         if (err) {
             res.status(500);
