@@ -54,7 +54,7 @@ exports.text = function(req, res) {
         'venäjä',
         //'velkatakuut',
         //'maakaasu',
-        'putin',
+        //'putin',
         //'kehäkolme',
         'susiraja',
         'pirkanmaa',
@@ -63,7 +63,7 @@ exports.text = function(req, res) {
         'virkamies',
         //'säännöstely',
         //'kontrolli',
-    ], 2, fromTime, 'fi', function(err, tweets) {
+    ], 30, fromTime, 'fi', function(err, tweets) {
         if (err) {
             console.log(err);
             res.status(500);
