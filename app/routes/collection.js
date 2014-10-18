@@ -63,7 +63,7 @@ exports.text = function(req, res) {
         'virkamies',
         //'säännöstely',
         //'kontrolli',
-    ], 1, fromTime, 'fi', function(err, tweets) {
+    ], 2, fromTime, 'fi', function(err, tweets) {
         if (err) {
             console.log(err);
             res.status(500);
@@ -72,6 +72,7 @@ exports.text = function(req, res) {
             });
         } else {
             res.jsonp({
+                count: tweets.length,
                 tweets: tweets
             });
         }
