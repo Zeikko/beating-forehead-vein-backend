@@ -20,7 +20,7 @@
                 tag: media.tags[0]
             };
         });
-    }
+    };
 
     var getImagesByTag = function(tag, fromTime, callback) {
         var images = [];
@@ -49,8 +49,7 @@
         instagram.media_search(location[0], location[1], {
             distance: 1000
         }, function(err, medias, remaining, limit) {
-            console.log(remaining);
-            console.log(limit);
+            var images;
             if (err) {
                 console.log(err);
                 callback(err, null);
@@ -70,11 +69,11 @@
                     });
                     return found;
                 });
-                var images = mapMediaData(medias);
+                images = mapMediaData(medias);
             }
             callback(null, images);
         });
-    }
+    };
 
     exports.getImagesByTags = function(tags, fromTime, callback) {
         var tagLoop = _.map(tags, function(tag) {

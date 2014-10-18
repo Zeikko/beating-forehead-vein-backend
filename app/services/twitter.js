@@ -24,7 +24,7 @@ exports.getTweetsByHashtags = function(hashtags, fromTime, lang, callback) {
         options.lang = lang;
     }
     twitter.get('search/tweets', options, function(err, data, response) {
-        //console.log(data);
+        console.log(data);
         if (err) {
             callback(err, null);
         } else {
@@ -34,9 +34,9 @@ exports.getTweetsByHashtags = function(hashtags, fromTime, lang, callback) {
                     return parseInt(moment(new Date(tweet.created_at)).format('X')) > fromTime;
                 });
             }
-            //Filter retweets and links
+            //Filter retweets and links and replies
             tweets = _.filter(tweets, function(tweet) {
-                return tweet.text.indexOf('http') === -1 && tweet.retweeted == false
+                return tweet.text.indexOf('http') === -1 && tweet.retweeted === false && tweet.text.indexOf('@') !== 0 && tweet.text.indexOf('RT') !== 0;
             });
             tweets = _.map(tweets, function(tweet) {
                 return {
