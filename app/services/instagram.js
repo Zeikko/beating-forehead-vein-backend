@@ -37,7 +37,7 @@
                 if(imagesPerTag < 20) {
                     var i = 0;
                     medias = _.filter(medias, function(media) {
-                        i++;
+                        i = i + 1;
                         if(i <= imagesPerTag) {
                             return true;
                         } else {
@@ -95,7 +95,7 @@
         async.parallel(tagLoop, function(err, images) {
             if (!err) {
                 images = _.flatten(images);
-                images = _.sortBy(images, 'timestamp');
+                images = _.shuffle(images);
             }
             callback(err, images);
         });

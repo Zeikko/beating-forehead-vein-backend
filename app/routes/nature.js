@@ -45,7 +45,7 @@ exports.text = function(req, res) {
         'talvi',
         'sieni',
         'ainola'
-    ], fromTime, 'fi', function(err, tweets) {
+    ], 100, fromTime, 'fi', function(err, tweets) {
         if (err) {
             res.status(500);
             res.jsonp({

@@ -21,6 +21,7 @@ app.get('/text/nature.json', nature.text);
 app.get('/instagram/tag.html', instagram.tag);
 app.get('/twitter/hashtag.json', twitter.hashtag);
 app.get('/images/collection.json', collection.images);
+app.get('/text/collection.json', collection.text);
 
 var server = app.listen(process.env.PORT || 3000, function() {
     var host = server.address().address;
