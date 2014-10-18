@@ -12,9 +12,10 @@
     });
 
     var getImagesByTag = function(tag, fromTime, callback) {
-        instagram.tag_media_recent(tag, {}, function(err, medias, remaining, limit) {
+        var images = [];
+        var getPage = function(err, medias, pagination, remaining, limit) {
             if (err) {
-                callback(err, null);
+                console.log(err);
             } else {
                 if (fromTime) {
                     medias = _.filter(medias, function(media) {
@@ -22,18 +23,22 @@
                     });
                 }
                 medias = _.map(medias, function(media) {
-                    console.log(media);
                     return {
                         timestamp: parseInt(media.created_time),
                         url: media.images.standard_resolution.url,
                         thumbnail: media.images.thumbnail.url,
-                        tags: media.tags,
                         tag: media.tags[0]
                     };
                 });
-                callback(null, medias);
+                images = images.concat(medias);
             }
-        });
+            if (pagination && pagination.next && images.length < 100) {
+                pagination.next(getPage);
+            } else {
+                callback(null, images);
+            }
+        };
+        instagram.tag_media_recent(tag, getPage);
     };
 
     exports.getImagesByTags = function(tags, fromTime, callback) {
