@@ -31,7 +31,7 @@ exports.images = function(req, res, cache) {
                 'säännöstely',
                 'kontrolli',
                 'suomettuminen'
-            ], 3, fromTime, function(err, images) {
+            ], 6, fromTime, function(err, images) {
                 if (err) {
                     console.log(err.message);
                     res.status(500);
