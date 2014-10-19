@@ -92,7 +92,7 @@ exports.text = function(req, res, cache) {
                     });
                 } else {
                     tweets.push({
-                        timestamp: moment(new Date()).format('X'),
+                        timestamp: parseInt(moment(new Date()).format('X')),
                         text: '#BeatingForeheadVeinCredits Wesa Aapro, Sami Rouhiainen, @Zeikko, @arttusilvast Special Thanks to Ville Hautakangas for #Nocturne #sibhack'
                     });
                     var response = {
