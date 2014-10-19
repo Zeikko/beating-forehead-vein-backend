@@ -83,7 +83,7 @@ exports.text = function(req, res, cache) {
                 'alibi',
                 'julkinensektori',
                 'virkamies'
-            ], 24, fromTime, 'fi', function(err, tweets) {
+            ], 23, fromTime, 'fi', function(err, tweets) {
                 if (err) {
                     console.log(err);
                     res.status(500);
