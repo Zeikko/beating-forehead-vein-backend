@@ -3,7 +3,10 @@
 var twit = require('twit'),
     _ = require('lodash'),
     moment = require('moment'),
-    async = require('async');
+    async = require('async'),
+    Entities = require('html-entities').XmlEntities;
+
+var entities = new Entities();
 
 var twitter = new twit({
     consumer_key: process.env.twitter_consumer_key,
@@ -37,7 +40,7 @@ var getTweetsByHashtag = function(hashtag, sort, fromTime, lang, callback) {
             tweets = _.map(tweets, function(tweet) {
                 return {
                     timestamp: parseInt(moment(new Date(tweet.created_at)).format('X')),
-                    text: tweet.text,
+                    text: entities.decode(tweet.text),
                     sort: sort,
                     hashtag: hashtag,
                     id: tweet.id
