@@ -1,7 +1,8 @@
 'use strict';
 
 var instagram = require('../services/instagram.js'),
-    twitter = require('../services/twitter.js');
+    twitter = require('../services/twitter.js'),
+    moment = require('moment');
 
 exports.images = function(req, res, cache) {
     var fromTime;
