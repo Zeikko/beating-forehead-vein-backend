@@ -81,8 +81,7 @@ exports.text = function(req, res, cache) {
                 'pirkanmaa',
                 'alibi',
                 'julkinensektori',
-                'virkamies',
-                'beatingforeheadveincredits'
+                'virkamies'
             ], 30, fromTime, 'fi', function(err, tweets) {
                 if (err) {
                     console.log(err);
@@ -91,6 +90,10 @@ exports.text = function(req, res, cache) {
                         error: 'Error while getting data from twitter'
                     });
                 } else {
+                    tweets.push({
+                        timestamp: moment(new Date()).format('X'),
+                        text: '#BeatingForeheadVeinCredits Wesa Aapro, Sami Rouhiainen, @Zeikko, @arttusilvast Special Thanks to Ville Hautakangas for #Nocturne #sibhack'
+                    });
                     var response = {
                         count: tweets.length,
                         tweets: tweets
