@@ -6,9 +6,9 @@
     var instagram = require('instagram-node').instagram();
 
     instagram.use({
-        access_token: '1035958982.117ba06.4abe0116ea094d489f0b6f2218942979',
-        client_id: '117ba064c0dc48249c0804d1b36f9524',
-        client_secret: '01e9ed98b82a4cee91769631dd3122cb'
+        access_token: process.env.instagram_access_token,
+        client_id: process.env.instagram_client_id,
+        client_secret: process.env.instagram_client_secret
     });
 
     var mapMediaData = function(medias) {

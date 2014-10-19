@@ -43,7 +43,7 @@ exports.images = function(req, res, cache) {
                         count: images.length,
                         images: images
                     };
-                    cache.set(cacheKey, response, 30 * 180, function() {
+                    cache.set(cacheKey, response, 3 * 180, function() {
                         res.jsonp(response);
                     });
                 }
@@ -94,7 +94,7 @@ exports.text = function(req, res, cache) {
                         count: tweets.length,
                         tweets: tweets
                     };
-                    cache.set(cacheKey, response, 30 * 180, function() {
+                    cache.set(cacheKey, response, 3 * 180, function() {
                         res.jsonp(response);
                     });
                 }
