@@ -81,7 +81,8 @@ exports.text = function(req, res, cache) {
                 'pirkanmaa',
                 'alibi',
                 'julkinensektori',
-                'virkamies'
+                'virkamies',
+                'beatingforeheadveincredits'
             ], 30, fromTime, 'fi', function(err, tweets) {
                 if (err) {
                     console.log(err);
