@@ -6,10 +6,10 @@ var twit = require('twit'),
     async = require('async');
 
 var twitter = new twit({
-    consumer_key: 'wVASXWImPduD7FaWNNK79iDio',
-    consumer_secret: 'sm24xFOXwawVUhL8KjGI9EAyOFp2gDyqYtgOe9StstsiHuCB6n',
-    access_token: '38498935-hO5kFps3kXkf3L0Yl4pbCzmS3iD9R4E7Pq5m4jqCk',
-    access_token_secret: 'WzO7jAy93WfAxEO3WfZTvHw3sTB7tG7bx9pRpu9sTLOhW'
+    consumer_key: process.env.twitter_consumer_key,
+    consumer_secret: process.env.twitter_consumer_secret,
+    access_token: process.env.twitter_access_token,
+    access_token_secret: process.env.twitter_access_token_secret,
 });
 
 var getTweetsByHashtag = function(hashtag, sort, fromTime, lang, callback) {
